@@ -38,11 +38,23 @@ public class Game {
     }
 
     public int getUserMove(int turn) {
-        String move = helper.getMove(turn);
+        String player;
+        if (turn%2==1) {
+            player = "Player 1";
+        } else {
+            player = "Player 2";
+        }
+        String move = helper.getMove(turn, player);
         return Integer.parseInt(move);
     }
 
-    public void updateBoard(int move, String shape) {
-        board[move-1] = shape;
+    public int updateBoard(int move, String shape) {
+        if(board[move-1] == "") {
+            board[move-1] = shape;
+            return 0;
+        } else {
+            out.println("Location already taken");
+            return -1;
+        }
     }
 }

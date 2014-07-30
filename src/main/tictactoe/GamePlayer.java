@@ -8,25 +8,30 @@ import java.io.PrintStream;
  */
 public class GamePlayer {
     private Game game;
+    private int turn;
+    private String shape;
+    private boolean isOver;
 
     public GamePlayer(InputStream in, PrintStream out) {
         game = new Game(in, out);
+        turn = 1;
+        isOver = false;
     }
 
     public void play() {
         game.printBoard();
-        int move = 1;
-        String shape;
-        while(true) {
-            if(move%2==1) {
+        int move;
+        while(!isOver) {
+            if(turn %2==1) {
                 shape = "X";
             } else {
                 shape = "O";
             }
-            int userMove = game.getUserMove(move);
-            game.updateBoard(userMove, shape);
+            move = game.getUserMove(turn);
+            if(game.updateBoard(move, shape) != -1) {
+                turn++;
+            }
             game.printBoard();
-            move++;
         }
     }
 }

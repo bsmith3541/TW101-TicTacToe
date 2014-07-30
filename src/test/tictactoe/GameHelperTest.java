@@ -27,7 +27,7 @@ public class GameHelperTest {
     @Test
     public void shouldReceiveUserMove() throws IOException {
         when(reader.readLine()).thenReturn("1");
-        String result = helper.getMove(0);
+        String result = helper.getMove(0, "Player 1");
         assertEquals("1", result);
     }
 }

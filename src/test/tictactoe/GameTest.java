@@ -34,4 +34,11 @@ public class GameTest {
         game.printBoard();
         verify(out).printf("%-3s | %-3s | %-3s%n", "X","", "");
     }
+
+    @Test
+    public void gameShouldNotAllowOverlap() {
+        game.updateBoard(1, "X");
+        game.updateBoard(1, "O");
+        verify(out).println("Location already taken");
+    }
 }

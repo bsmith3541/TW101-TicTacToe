@@ -15,14 +15,8 @@ public class GameHelper {
         this.reader = reader;
     }
 
-    public String getMove(int turn) {
+    public String getMove(int turn, String player) {
         String userMove = null;
-        String player;
-        if (turn%2==1) {
-            player = "Player 1";
-        } else {
-            player = "Player 2";
-        }
         System.out.print("Enter a number from 1 - 9, "+player+": ");
         try {
             userMove = reader.readLine();
