@@ -3,6 +3,7 @@ package tictactoe;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -18,17 +19,27 @@ import static org.mockito.Mockito.verify;
 public class GameTest {
     private Game game;
     private PrintStream out;
+    private InputStream in;
 
     @Before
     public void setUp() {
-        game = new Game();
+        in = mock(InputStream.class);
         out = mock(PrintStream.class);
+        game = new Game(in, out);
     }
 
     @Test
     public void shouldPrintBoard()
     {
-        game.printBoard(out);
+        game.printBoard();
         verify(out).println("  |  |  \n\n---------\n\n  |  |  \n\n---------\n\n  |  |  ");
+    }
+
+    @Test
+    public void shouldReceiveUserMove() {
+        ByteArrayInputStream userResponse = new ByteArrayInputStream("1".getBytes());
+        game = new Game(userResponse, out);
+        int result = game.getUserMove();
+        assertEquals(result, 1);
     }
 }
