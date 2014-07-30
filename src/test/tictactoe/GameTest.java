@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -16,17 +17,18 @@ import static org.mockito.Mockito.verify;
  */
 public class GameTest {
     private Game game;
-
+    private PrintStream out;
 
     @Before
     public void setUp() {
         game = new Game();
+        out = mock(PrintStream.class);
     }
 
     @Test
-    public void shouldDrawBoardOnStartup()
+    public void shouldPrintBoard()
     {
-        String board = game.getBoard();
-        assertEquals(board, "  |  |  \n\n---------\n\n  |  |  \n\n---------\n\n  |  |  ");
+        game.printBoard(out);
+        verify(out).println("  |  |  \n\n---------\n\n  |  |  \n\n---------\n\n  |  |  ");
     }
 }

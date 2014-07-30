@@ -1,5 +1,7 @@
 package tictactoe;
 
+import java.io.PrintStream;
+
 import static java.lang.System.out;
 
 /**
@@ -11,8 +13,7 @@ public class Game {
     public Game() {
         board = "  |  |  \n\n---------\n\n  |  |  \n\n---------\n\n  |  |  ";
     }
-    public String getBoard() {
-        System.out.println(board);
-        return board;
+    public void printBoard(PrintStream out) {
+        out.println(board);
     }
 }
