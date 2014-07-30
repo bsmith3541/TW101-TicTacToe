@@ -9,17 +9,23 @@ import java.io.InputStreamReader;
  * Created by brandonsmith on 7/30/14.
  */
 public class GameHelper {
-    private InputStream in;
+    private BufferedReader reader;
 
-    public GameHelper(InputStream in) {
-        this.in = in;
+    public GameHelper(BufferedReader reader) {
+        this.reader = reader;
     }
-    public String getMove() {
+
+    public String getMove(int turn) {
         String userMove = null;
-        System.out.print("Enter a number from 1 - 9: ");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String player;
+        if (turn%2==1) {
+            player = "Player 1";
+        } else {
+            player = "Player 2";
+        }
+        System.out.print("Enter a number from 1 - 9, "+player+": ");
         try {
-            userMove = bufferedReader.readLine();
+            userMove = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
