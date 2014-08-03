@@ -1,60 +1,43 @@
 package tictactoe;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
-
-import static java.lang.System.out;
 
 /**
  * Created by brandonsmith on 7/30/14.
  */
 public class Game {
-    private String[] board;
-    private GameHelper helper;
-    private InputStream in;
-    private PrintStream out;
+    private Board board;
+    private Player player1;
+    private Player player2;
+    private int turn;
+    private String shape;
+    private boolean isOver;
 
-    public Game(InputStream in, PrintStream out) {
-        this.in = in;
-        this.out = out;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        helper = new GameHelper(reader);
-        board = new String[] {"", "", "", "", "", "", "", "", ""};
+    public Game(Board board, Player player1, Player player2) {
+        this.board = board;
+        this.player1 = player1;
+        this.player2 = player2;
+        turn = 1;
+        isOver = false;
     }
 
-    public void printBoard() {
-        int offset = 0;
-        for(int i = 0; i <=4; i++)
-        {
-            if(i%2==0) {
-                out.printf("%-3s | %-3s | %-3s%n", board[i+offset], board[i+offset+1], board[i+offset+2]);
-                offset++;
+    public void start() {
+        Player currentPlayer;
+        board.printBoard();
+        int move;
+        while (!isOver) {
+            if(turn%2==1) {
+                currentPlayer = player1;
             } else {
-                out.println("----------------");
+                currentPlayer = player2;
             }
-        }
-    }
-
-    public int getUserMove(int turn) {
-        String player;
-        if (turn%2==1) {
-            player = "Player 1";
-        } else {
-            player = "Player 2";
-        }
-        String move = helper.getMove(turn, player);
-        return Integer.parseInt(move);
-    }
-
-    public int updateBoard(int move, String shape) {
-        if(board[move-1] == "") {
-            board[move-1] = shape;
-            return 0;
-        } else {
-            out.println("Location already taken");
-            return -1;
+            currentPlayer.makeMove(board);
+            if(isOver = board.isOver()) {
+                // end game
+            }
+            turn++;
+            board.printBoard();
         }
     }
 }

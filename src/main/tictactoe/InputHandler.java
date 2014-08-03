@@ -8,16 +8,16 @@ import java.io.InputStreamReader;
 /**
  * Created by brandonsmith on 7/30/14.
  */
-public class GameHelper {
+public class InputHandler {
     private BufferedReader reader;
 
-    public GameHelper(BufferedReader reader) {
+    public InputHandler(BufferedReader reader) {
         this.reader = reader;
     }
 
-    public String getMove(int turn, String player) {
+    public String getMove(String name) {
         String userMove = null;
-        System.out.print("Enter a number from 1 - 9, "+player+": ");
+        System.out.print("Enter a number from 1 - 9, "+name+": ");
         try {
             userMove = reader.readLine();
         } catch (IOException e) {

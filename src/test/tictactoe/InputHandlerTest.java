@@ -12,22 +12,20 @@ import static org.mockito.Mockito.when;
 /**
  * Created by brandonsmith on 7/30/14.
  */
-public class GameHelperTest {
+public class InputHandlerTest {
     private BufferedReader reader;
-    private GameHelper helper;
-
+    private InputHandler helper;
 
     @Before
     public void setUp() {
-        InputStream in = mock(InputStream.class);
         reader = mock(BufferedReader.class);
-        helper = new GameHelper(reader);
+        helper = new InputHandler(reader);
     }
 
     @Test
     public void shouldReceiveUserMove() throws IOException {
         when(reader.readLine()).thenReturn("1");
-        String result = helper.getMove(0, "Player 1");
+        String result = helper.getMove("X");
         assertEquals("1", result);
     }
 }
